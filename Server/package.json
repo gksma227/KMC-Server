@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Code20Project/KMC-Server#readme",
   "dependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.3.4"
   }
 }
