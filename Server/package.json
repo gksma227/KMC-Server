@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Code20Project/KMC-Server/issues"
   },
-  "homepage": "https://github.com/Code20Project/KMC-Server#readme"
+  "homepage": "https://github.com/Code20Project/KMC-Server#readme",
+  "dependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
