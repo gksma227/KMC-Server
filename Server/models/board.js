@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         },
         contents: {
-            type: DataTypes.STRING(16777215), // mediumtext
+            type: DataTypes.TEXT('medium'), // mediumtext
             allowNull: true,
         },
         register_date: {
