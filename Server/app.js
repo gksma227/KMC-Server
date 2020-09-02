@@ -8,6 +8,10 @@ const morgan = require('morgan');
 const app = express();
 const port = 3001;
 
+// routes
+const userRouter = require('./routes/user');
+
+
 /*
  * bodyparser.json() - body로 넘어온 데이터를 JSON 객체로 변환
  */
@@ -29,12 +33,14 @@ app.use(
   }),
 );
 
-app.post('/test', (req, res) => {
-    res.send('this res is ok!');
-});
-
 // print the request log on console
 app.use(morgan('dev'));
+
+app.post('/test', (req, res) => {
+  res.send('this res is ok!');
+});
+
+app.use('/user', userRouter);
 
 app.set('port', port);
 app.listen(app.get('port'), () => {
