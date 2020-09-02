@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const app = express();
 const port = 3001;
 
+const { jwtVerify } = require('./jwt');
 // routes
 const userRouter = require('./routes/user');
 
@@ -33,12 +34,21 @@ app.use(
   }),
 );
 
+// set the secret key variable for jwt
+app.set('jwt-secret', 'KMC@'); // secret 키의 값을 셋팅해준다. 추후에 데이터베이스에 저장된 데이터를 가져올 예정
+// req.app.get('jwt-secret'); 값을 가져오는 함수
 // print the request log on console
 app.use(morgan('dev'));
 
 app.post('/test', (req, res) => {
-  res.send('this res is ok!');
-});
+  // header에 저장되어 있는 x-access-token의 값을 가져옵니다.
+  const token = req.get('x-access-token');
+  jwtVerify(token).then((result) => {
+    console.log(result.id);
+    res.send(result);
+  });
+  // res.send('this res is ok!');
+  });
 
 app.use('/user', userRouter);
 
