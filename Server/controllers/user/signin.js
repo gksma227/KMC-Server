@@ -19,10 +19,9 @@ module.exports = {
             } else {
                 jwtSign(result.id, result.nickname, 'user').then((token) => {
                     res.set('x-access-token', token);
-                    res.status(200).json({
-                        email: result.email,
+                    res.status(201).json({
+                        id: result.id,
                         nickname: result.nickname,
-                        position: 'user',
                     });
                 });
             }
