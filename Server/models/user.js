@@ -1,3 +1,7 @@
+const crypto = require('crypto');
+
+const salt = process.env.SALT;
+
 module.exports = (sequelize, DataTypes) => {
     const user = sequelize.define('user', {
         id: {
