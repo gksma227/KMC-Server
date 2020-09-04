@@ -28,5 +28,24 @@
     "nodemon": "^2.0.4",
     "sequelize": "^6.3.4",
     "sequelize-cli": "^6.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": ""
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.3.0"
   }
 }
