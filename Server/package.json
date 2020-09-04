@@ -27,5 +27,10 @@
     "nodemon": "^2.0.4",
     "sequelize": "^6.3.4",
     "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
   }
 }
