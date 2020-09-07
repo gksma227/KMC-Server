@@ -11,5 +11,11 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "no-tabs": "off",
+        "indent": "off",
+        "max-len": "off",  // 추후에 페어와 협의하여 풀을 예정
+        "global-require": "off",
+        "no-mixed-spaces-and-tabs": "off",
+        "camelcase": "off"
     }
 }
