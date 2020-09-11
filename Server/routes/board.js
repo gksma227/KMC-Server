@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
+const { boardController } = require('../controllers');
 const { boardType } = require('../controllers/board');
 
 // * GET  // 게시판에 있는 전체 글들을 불러옵니다.
@@ -16,6 +17,6 @@ router.get('/:boardtype/:id', boardType.id.get);
 // * PATCH /modify/:id
 router.patch('/:boardtype/modify/:id', boardType.modify.patch);
 
-router.get('');
+router.get('', boardController.get);
 
 module.exports = router;
