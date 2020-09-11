@@ -18,8 +18,8 @@ module.exports = {
         });
 
         console.log(boardtypes);
-
-        res.send(boardtypes);
+        const resData = { boardtype: boardtypes };
+        res.json(resData);
       });
     },
   };
