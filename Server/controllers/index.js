@@ -1,4 +1,4 @@
 module.exports = {
     userController: require('./user'),
-    // boardController: require('./board'),
+    boardController: require('./board'),
 };
