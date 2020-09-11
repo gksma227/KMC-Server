@@ -36,6 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         },
 
     }, {
+        hooks: {
+            afterSave: (instance, options) => {
+                console.log(instance.dataValues);
+            }
+
+            
+        },
         sequelize,
         tableName: 'board',
         timestamps: false,
