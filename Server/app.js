@@ -1,4 +1,4 @@
- const express = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -8,10 +8,10 @@ const morgan = require('morgan');
 const app = express();
 const port = 3001;
 
-const { jwtVerify } = require('./jwt');
+// const { jwtVerify } = require('./JWT');
 // routes
 const userRouter = require('./routes/user');
-
+const boardRouter = require('./routes/board');
 
 /*
  * bodyparser.json() - body로 넘어온 데이터를 JSON 객체로 변환
@@ -40,17 +40,18 @@ app.set('jwt-secret', 'KMC@'); // secret 키의 값을 셋팅해준다. 추후�
 // print the request log on console
 app.use(morgan('dev'));
 
-app.post('/test', (req, res) => {
-  // header에 저장되어 있는 x-access-token의 값을 가져옵니다.
-  const token = req.get('x-access-token');
-  jwtVerify(token).then((result) => {
-    console.log(result.id);
-    res.send(result);
-  });
-  // res.send('this res is ok!');
-  });
+// app.post('/test', (req, res) => {
+//   // header에 저장되어 있는 x-access-token의 값을 가져옵니다.
+//   const token = req.get('x-access-token');
+//   jwtVerify(token).then((result) => {
+//     console.log(result.id);
+//     res.send(result);
+//   });
+//   // res.send('this res is ok!');
+//   });
 
 app.use('/user', userRouter);
+app.use('/board', boardRouter);
 
 app.set('port', port);
 app.listen(app.get('port'), () => {
