@@ -8,9 +8,14 @@ module.exports = {
         if (req.params.id){
             board
             .findOne({
+                include: [
+                    {
+                        model: user,
+                    }
+                ],
                 where: {
-                    id: req.params.id,
-                },
+                    id: req.params.id
+                }
             })
             .then((result)=>{
                 if (result){
