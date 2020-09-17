@@ -1,6 +1,6 @@
 const db = require('../../../models');
 const { board } = db;
-
+const { user } = db;
 module.exports = {
     get: (req, res) => {
         // console.log('check: ', req.params);
