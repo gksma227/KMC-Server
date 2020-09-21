@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const crypto = require('crypto');
 
 const salt = process.env.SALT;
@@ -21,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING(255),
             allowNull: true,
-        }
-    }, 
+        },
+    },
     {
         hooks: {
           // 비밀번호를 해싱해서 데이터베이스에 저장한다.

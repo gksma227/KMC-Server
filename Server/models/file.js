@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         file_size: {
             type: DataTypes.INTEGER,
             allowNull: true,
-        }
+        },
     }, {
         sequelize,
         tableName: 'file',

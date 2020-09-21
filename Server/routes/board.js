@@ -11,7 +11,7 @@ router.get('/:boardtype', boardType.get);
 // * POST /write
 router.post('/:boardtype/write', boardType.write.post);
 // * POST /comment
-router.post('/:boardtype/write', boardType.comment.post);
+router.post('/:boardtype/comment', boardType.comment.post);
 
 // * GET /:id
 router.get('/:boardtype/:id', boardType.id.get);
