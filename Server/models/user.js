@@ -47,5 +47,8 @@ module.exports = (sequelize, DataTypes) => {
     user.associate = function (models) {
         user.hasMany(models.board);
     };
+    user.associate = function (models) {
+      user.hasMany(models.comment);
+  };
     return user;
 };
