@@ -1,4 +1,4 @@
-const db = require('../../models')
+const db = require('../../models');
 
 const { user } = db;
 const { jwtVerify } = require('../../JWT');
@@ -6,7 +6,7 @@ const { jwtVerify } = require('../../JWT');
 module.exports = {
     get: (req, res) => {
         const token = req.get('x-access-token');
-        if (token){
+        if (token) {
              jwtVerify(token).then((payload) => {
         if (payload.id) {
             user
@@ -21,30 +21,28 @@ module.exports = {
                     const sendObj = {
                         id: result.id,
                         nickname: result.nickname,
-                    }
+                    };
                    res.status(201).json(sendObj);
                 } else {
                     res.sendStatus(409);
                 }
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
                 res.sendStatus(500);
             });
         }
-    }).catch(err => {
+    }).catch((err) => {
         console.log(`jwtVerify error: ${err}`);
-
-    })
-
+    });
  }
 },
         patch: (req, res) => {
             const token = req.get('x-access-token');
-            const { 
-                nickname, password
+            const {
+                nickname, password,
             } = req.body;
-            if (token){
+            if (token) {
                  jwtVerify(token).then((payload) => {
             if (payload.id) {
                 user
@@ -59,26 +57,24 @@ module.exports = {
                         user.update({
                             nickname,
                             password,
-                        }, { where: { id: payload.id } })
+                        }, { where: { id: payload.id } });
                         const sendObj = {
                             id: result.id,
                             nickname: result.nickname,
-                        }
+                        };
                        res.status(201).json(sendObj);
                     } else {
                         res.sendStatus(409);
                     }
                 })
                 .catch((err) => {
-                    console.log(err)
+                    console.log(err);
                     res.sendStatus(500);
                 });
             }
-        }).catch(err => {
+        }).catch((err) => {
             console.log(`jwtVerify error: ${err}`);
-    
-        })
-    
+        });
      }
-    }
-}
+    },
+};

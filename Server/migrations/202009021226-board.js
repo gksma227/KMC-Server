@@ -13,7 +13,7 @@ module.exports = {
       userid: {
           type: Sequelize.INTEGER,
           allowNull: true,
-          references: { model: 'user', key: 'id'}
+          references: { model: 'user', key: 'id' },
       },
       contents: {
           type: Sequelize.TEXT('medium'),
@@ -34,10 +34,10 @@ module.exports = {
     boardtype_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: 'boardtype', key: 'id'}
+        references: { model: 'boardtype', key: 'id' },
     },
   }),
-  
+
     // eslint-disable-next-line no-unused-vars
     down: (queryInterface, Sequelize) => queryInterface.dropTable('board'),
   };
