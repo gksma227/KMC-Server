@@ -36,6 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         },
 
     }, {
+        hooks: {
+            // eslint-disable-next-line no-unused-vars
+            afterSave: (instance, options) => {
+                console.log(instance.dataValues);
+            },
+
+        },
         sequelize,
         tableName: 'board',
         timestamps: false,

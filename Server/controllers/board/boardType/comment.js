@@ -1,23 +1,20 @@
 const db = require('../../../models');
 
-const { comment, user, board } = db;
+const { comment, user } = db;
 
 module.exports = {
     post: (req, res) => {
         const {
- c_userid, c_contents, c_date, c_recommend, c_boardid,
+ c_userid, c_contents, c_recommend, c_boardid,
 } = req.body;
         comment
-        .findOne({
+        .findAll({
             where: {
-                c_userid, c_contents, c_date, c_recommend, c_boardid,
+                c_userid, c_contents, c_recommend, c_boardid,
             },
             include: [
                 {
                     model: user,
-                },
-                {
-                    model: board,
                 },
             ],
         })
