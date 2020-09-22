@@ -34,4 +34,17 @@ post.save({
             console.log(err);
         });
     },
+    get: (req, res) => {
+        console.log(req.query);
+        console.log('test');
+        res.sendStatus(200);
+    },
+    patch: (req, res) => {
+        console.log(req.params);
+        res.sendStatus(200);
+    },
+    delete: (req, res) => {
+        console.log(req.params);
+        res.sendStatus(200);
+    },
 };
