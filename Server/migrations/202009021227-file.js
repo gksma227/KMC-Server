@@ -9,7 +9,7 @@ module.exports = {
         board_id: {
             type: Sequelize.INTEGER,
             allowNull: true,
-            references: { model: 'board', key: 'id'}
+            references: { model: 'board', key: 'id' },
         },
         file_path: {
             type: Sequelize.STRING(255),
@@ -26,9 +26,9 @@ module.exports = {
         file_size: {
             type: Sequelize.INTEGER,
             allowNull: true,
-        }
+        },
   }),
-  
+
     // eslint-disable-next-line no-unused-vars
     down: (queryInterface, Sequelize) => queryInterface.dropTable('file'),
   };

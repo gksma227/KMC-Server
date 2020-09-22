@@ -17,9 +17,9 @@ module.exports = {
         password: {
             type: Sequelize.STRING(255),
             allowNull: true,
-        }
+        },
   }),
-  
+
     // eslint-disable-next-line no-unused-vars
     down: (queryInterface, Sequelize) => queryInterface.dropTable('user'),
   };

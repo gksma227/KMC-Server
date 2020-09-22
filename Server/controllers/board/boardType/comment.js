@@ -1,23 +1,27 @@
 const db = require('../../../models');
 
-const { comment, user } = db;
+const { comment, user, board } = db;
 
 module.exports = {
     post: (req, res) => {
-        const {
- c_userid, c_contents, c_recommend, c_boardid,
-} = req.body;
-        comment
-        .findAll({
-            where: {
-                c_userid, c_contents, c_recommend, c_boardid,
-            },
-            include: [
-                {
-                    model: user,
-                },
-            ],
-        })
+// eslint-disable-next-line new-cap
+const post = new comment({
+    c_userid: req.body.c_userid,
+    c_contents: req.body.c_contents,
+    c_recommend: req.body.c_recommend,
+    c_date: new Date(),
+    c_boardid: req.body.c_boardid,
+});
+post.save({
+    include: [
+        {
+            models: user,
+        },
+        {
+            models: board,
+        },
+],
+})
         .then((result) => {
             if (result) {
                 res.sendStatus(200);

@@ -47,21 +47,33 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'board',
         timestamps: false,
     });
+
     board.associate = function (models) {
         board.belongsTo(models.user, {
             foreignKey: 'user_id',
         });
-    };
-    board.associate = function (models) {
+
         board.belongsTo(models.boardtype, {
             foreignKey: 'boardtype_id',
         });
-    };
-    board.associate = function (models) {
+
         board.hasMany(models.file);
-    };
-    board.associate = function (models) {
+
         board.hasMany(models.comment);
     };
+
+    // board.associate = function (models) {
+    //     board.belongsTo(models.boardtype, {
+    //         foreignKey: 'boardtype_id',
+    //     });
+    // };
+
+    // board.associate = function (models) {
+    //     board.hasMany(models.file);
+    // };
+
+    // board.associate = function (models) {
+    //     board.hasMany(models.comment);
+    // };
     return board;
 };
