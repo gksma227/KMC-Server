@@ -1,5 +1,5 @@
 module.exports = {
- development: { // 서버 데이터베이스 정보
+ test: { // 서버 데이터베이스 정보
   username: 'code20',
   password: process.env.DATABASE_PASSWORD,
   database: 'KMC',
@@ -8,7 +8,7 @@ module.exports = {
   dialect: 'mysql',
   logging: false,
   },
-  test: { // 테스트할 때 DATABASE 연결 정보
+  development: { // 테스트할 때 DATABASE 연결 정보
     username: 'root',
     password: process.env.DATABASE_PASSWORD,
     database: 'KMC',

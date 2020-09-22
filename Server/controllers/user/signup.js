@@ -1,20 +1,22 @@
 const db = require('../../models');
+
 const { user } = db;
 module.exports = {
     post: (req, res) => {
-        const { 
+        const {
             email, nickname, password,
         } = req.body;
         user
         .findOrCreate({
             where: {
-                email
+                email,
             },
             defaults: {
                 nickname,
-                password
+                password,
             },
         })
+        // eslint-disable-next-line consistent-return
         .then(async ([result, created]) => {
             if (!created) {
                 return res.sendStatus(409);
