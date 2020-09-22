@@ -31,15 +31,21 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'comment',
         timestamps: false,
     });
+
     comment.associate = function (models) {
         comment.belongsTo(models.board, {
             foreignKey: 'c_boardid',
         });
-    };
-    comment.associate = function (models) {
+
         comment.belongsTo(models.user, {
             foreignKey: 'c_userid',
         });
     };
+
+    // comment.associate = function (models) {
+    //     comment.belongsTo(models.user, {
+    //         foreignKey: 'c_userid',
+    //     });
+    // };
     return comment;
 };
