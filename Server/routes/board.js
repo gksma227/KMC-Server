@@ -10,8 +10,6 @@ router.get('/:boardtype', boardType.get);
 
 // * POST /write
 router.post('/:boardtype/write', boardType.write.post);
-// * POST /comment
-router.post('/:boardtype/comment', boardType.comment.post);
 
 // * GET /:id
 router.get('/:boardtype/:id', boardType.id.get);
@@ -20,5 +18,17 @@ router.get('/:boardtype/:id', boardType.id.get);
 router.patch('/:boardtype/modify/:id', boardType.modify.patch);
 
 router.get('', boardController.get);
+
+// * POST /comment
+router.post('/:boardtype/:postid/comment', boardType.comment.post);
+
+// * GET /commnet
+router.get('/:boardtype/:postid/comment', boardType.comment.get);
+
+// * PATCH /comment
+router.patch('/:boardtype/comment/:id', boardType.comment.patch);
+
+// * DELETE /comment
+router.delete('/:boardtype/comment/:id', boardType.comment.delete);
 
 module.exports = router;
