@@ -1,40 +1,45 @@
 module.exports = (sequelize, DataTypes) => {
-    const file = sequelize.define('file', {
+    const comment = sequelize.define('comment', {
         id: {
             autoIncrement: true,
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
         },
-        board_id: {
+        c_userid: {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        file_path: {
+        c_contents: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        file_name: {
-            type: DataTypes.STRING(255),
+        c_date: {
+            type: DataTypes.DATE,
             allowNull: true,
         },
-        file_type: {
-            type: DataTypes.STRING(255),
+        c_recommend: {
+            type: DataTypes.INTEGER,
             allowNull: true,
         },
-        file_size: {
+        c_boardid: {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
     }, {
         sequelize,
-        tableName: 'file',
+        tableName: 'comment',
         timestamps: false,
     });
-    file.associate = function (models) {
-        file.belongsTo(models.board, {
-            foreignKey: 'board_id',
+    comment.associate = function (models) {
+        comment.belongsTo(models.board, {
+            foreignKey: 'c_boardid',
         });
     };
-    return file;
+    comment.associate = function (models) {
+        comment.belongsTo(models.user, {
+            foreignKey: 'c_userid',
+        });
+    };
+    return comment;
 };

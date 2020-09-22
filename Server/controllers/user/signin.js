@@ -1,5 +1,6 @@
 const db = require('../../models');
 const { jwtSign } = require('../../JWT');
+
 const { user } = db;
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
                 password,
             },
         })
-        .then ((result) => {
+        .then((result) => {
             if (!result) {
                 res.status(404).json({ message: 'invalid user' });
             } else {
@@ -26,7 +27,7 @@ module.exports = {
                 });
             }
         })
-        .catch((err)=>{
+        .catch((err) => {
             res.status(500).send(err);
         });
     },
