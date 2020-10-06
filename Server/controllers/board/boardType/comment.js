@@ -12,6 +12,7 @@ const post = new comment({
     c_date: new Date(),
     c_boardid: req.body.c_boardid,
 });
+
 post.save({
     include: [
         {
@@ -24,27 +25,95 @@ post.save({
 })
         .then((result) => {
             if (result) {
-                res.sendStatus(200);
+                console.log('result: ', result);
+                res.status(201).json({ id: result.id });
             } else {
-                res.sendStatus(404);
+                res.send(404);
+            }
+        })
+        .catch((err) => {
+            res.send(500);
+            console.log(err);
+        });
+    },
+    get: (req, res) => {
+        if (req.params.id) {
+            comment
+            .findAll({
+                include: [
+                    {
+                        model: user,
+                    },
+                    {
+                        model: board,
+                    },
+                ],
+                where: {
+                    id: req.params.id,
+                },
+            })
+            .then((result) => {
+                if (result) {
+                    res.sendStatus(200);
+                } else {
+                    res.sendStatus(409);
+                }
+            })
+            .catch((err) => {
+                res.sendStatus(500);
+                console.log(err);
+            });
+        }
+    },
+    patch: (req, res) => {
+        // eslint-disable-next-line new-cap
+        const { c_contents } = req.body;
+                comment.update({
+                    c_contents,
+                }, {
+                    where: {
+                        id: req.params.id,
+                    },
+                })
+                .then((result) => {
+                    console.log('result: ', result);
+                    if (result[0]) {
+                        // [0]이면 false, [1]이면 true
+                        res.send(200);
+                    } else {
+                        res.send(409);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.send(500);
+                });
+    },
+    delete: (req, res) => {
+        comment
+        .findOne({
+            include: [
+                {
+                    model: user,
+                },
+                {
+                    model: board,
+                },
+            ],
+            where: {
+                id: req.params.id,
+            },
+        })
+        .then((result) => {
+            if (result) {
+                comment.delete().then(() => res.sendStatus(200));
+            } else {
+                res.sendStatus(409);
             }
         })
         .catch((err) => {
             res.sendStatus(500);
             console.log(err);
         });
-    },
-    get: (req, res) => {
-        console.log(req.query);
-        console.log('test');
-        res.sendStatus(200);
-    },
-    patch: (req, res) => {
-        console.log(req.params);
-        res.sendStatus(200);
-    },
-    delete: (req, res) => {
-        console.log(req.params);
-        res.sendStatus(200);
     },
 };
