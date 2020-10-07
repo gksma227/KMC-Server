@@ -1,19 +1,19 @@
+// 자원 접근을 위한 access token 입니다.
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.JWT;
+const secret = process.env.ACCESS_JWT;
 
-exports.jwtSign = (id, username, position) => new Promise((resolve, reject) => {
+exports.accessJwtSign = (id, email) => new Promise((resolve, reject) => {
         jwt.sign(
             {
                 id,
-                username,
-                position,
+                email,
             },
             secret,
             {
                 expiresIn: '7d',
-                issuer: 'velopert.com',
-                subject: 'userInfo',
+                issuer: 'ksai.kr',
+                subject: 'access',
             }, (err, token) => {
                 if (err) reject(err);
                 resolve(token);
@@ -21,7 +21,7 @@ exports.jwtSign = (id, username, position) => new Promise((resolve, reject) => {
         );
     });
 
-exports.jwtVerify = (token) => new Promise(
+exports.accessJwtVerify = (token) => new Promise(
         (resolve, reject) => {
             jwt.verify(token, secret, (err, decoded) => {
                 if (err) reject(err);
