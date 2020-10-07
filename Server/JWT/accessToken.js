@@ -11,7 +11,7 @@ exports.accessJwtSign = (id, email) => new Promise((resolve, reject) => {
             },
             secret,
             {
-                expiresIn: '7d',
+                expiresIn: '1d',
                 issuer: 'ksai.kr',
                 subject: 'access',
             }, (err, token) => {

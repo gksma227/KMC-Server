@@ -11,7 +11,7 @@ exports.refreshJwtSign = (id, username) => new Promise((resolve, reject) => {
             },
             secret,
             {
-                expiresIn: '7d',
+                expiresIn: '3d',
                 issuer: 'ksai.kr',
                 subject: 'refresh',
             }, (err, token) => {
