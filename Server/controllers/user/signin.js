@@ -1,5 +1,6 @@
 const db = require('../../models');
-const { jwtSign } = require('../../JWT');
+const { refreshJwtSign } = require('../../JWT/refreshToken');
+const { accessJwtSign } = require('../../JWT/accessToken');
 
 const { user } = db;
 
@@ -14,16 +15,20 @@ module.exports = {
                 password,
             },
         })
-        .then((result) => {
+        .then(async (result) => {
             if (!result) {
                 res.status(404).json({ message: 'invalid user' });
             } else {
-                jwtSign(result.id, result.nickname, 'user').then((token) => {
+                await refreshJwtSign(result.id, result.username).then((token) => {
+                    res.set('x-refresh-token', token);
+                });
+
+                await accessJwtSign(result.id, result.email, 'user').then((token) => {
                     res.set('x-access-token', token);
-                    res.status(201).json({
-                        id: result.id,
-                        nickname: result.nickname,
-                    });
+                });
+
+                res.status(200).json({
+                    nickname: result.nickname,
                 });
             }
         })
