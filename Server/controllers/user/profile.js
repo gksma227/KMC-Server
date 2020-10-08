@@ -9,7 +9,6 @@ module.exports = {
 
         if (!token) { // 'x-access-token'이 없으면
             return res.status(401).json({
-                status: 401,
                 message: '헤더에 토큰이 없습니다.',
             });
         }
@@ -29,14 +28,13 @@ module.exports = {
                             id: result.id,
                             nickname: result.nickname,
                         };
-                    res.status(201).json(sendObj);
+                    res.status(200).json(sendObj);
                     } else {
                         res.sendStatus(409);
                     }
                 })
                 .catch((err) => {
                     res.sendStatus(500).json({
-                        code: 500,
                         message: err.name,
                     });
                 });
@@ -44,13 +42,11 @@ module.exports = {
     }).catch((err) => {
         if (err.name === 'TokenExpiredError') { // 유효기간이 초과한 에러일 경우
             return res.status(419).json({
-                code: 419,
                 message: '토큰이 만료되었습니다',
             });
         }
 
              return res.status(401).json({
-                 code: 401,
                  message: '유효하지 않은 토큰입니다.',
              });
     });
@@ -63,7 +59,6 @@ module.exports = {
 
             if (!token) { // 'x-access-token'이 없으면
                 return res.status(401).json({
-                    status: 401,
                     message: '헤더에 토큰이 없습니다.',
                 });
             }
@@ -87,7 +82,7 @@ module.exports = {
                                 id: result.id,
                                 nickname: result.nickname,
                             };
-                        res.status(201).json(sendObj);
+                        res.status(200).json(sendObj);
                         } else {
                             res.sendStatus(409);
                         }
@@ -100,13 +95,11 @@ module.exports = {
         }).catch((err) => {
             if (err.name === 'TokenExpiredError') { // 유효기간이 초과한 에러일 경우
                 return res.status(419).json({
-                    code: 419,
                     message: '토큰이 만료되었습니다',
                 });
             }
 
              return res.status(401).json({
-                 code: 401,
                  message: '유효하지 않은 토큰입니다.',
              });
         });
