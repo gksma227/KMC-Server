@@ -23,7 +23,7 @@ module.exports = {
                     res.set('x-refresh-token', token);
                 });
 
-                await accessJwtSign(result.id, result.email, 'user').then((token) => {
+                await accessJwtSign(result.id, result.email).then((token) => {
                     res.set('x-access-token', token);
                 });
 
