@@ -5,6 +5,12 @@ const cors = require('cors');
 // Express 서버에서 발생하는 이벤트들을 기록해주는 미들웨어
 const morgan = require('morgan');
 
+const { refreshJwtVerify } = require('./JWT/refreshToken');
+const { accessJwtSign } = require('./JWT/accessToken');
+const db = require('./models');
+
+const { user } = db;
+
 const app = express();
 const port = 3001;
 
@@ -34,24 +40,60 @@ app.use(
   }),
 );
 
-// set the secret key variable for jwt
-app.set('jwt-secret', 'KMC@'); // secret 키의 값을 셋팅해준다. 추후에 데이터베이스에 저장된 데이터를 가져올 예정
-// req.app.get('jwt-secret'); 값을 가져오는 함수
-// print the request log on console
+// Print the request log on console
 app.use(morgan('dev'));
-
-// app.post('/test', (req, res) => {
-//   // header에 저장되어 있는 x-access-token의 값을 가져옵니다.
-//   const token = req.get('x-access-token');
-//   jwtVerify(token).then((result) => {
-//     console.log(result.id);
-//     res.send(result);
-//   });
-//   // res.send('this res is ok!');
-//   });
 
 app.use('/user', userRouter);
 app.use('/board', boardRouter);
+
+// refreshToken을 통해 accessToken을 발급합니다.
+app.get('/auth', async (req, res) => {
+  const token = req.get('x-refresh-token');
+
+  if (!token) { // 'x-refresh-token'이 없으면
+      return res.status(401).json({
+          message: '헤더에 Refresh 토큰이 없습니다.',
+      });
+  }
+  // 'x-refresh-token이 있으면'
+  // DB에서 사용자가 맞은지 확인하고 accessToken을 발급한다.
+  await refreshJwtVerify(token).then((payload) => {
+    if (payload.id) {
+      user
+      .findOne({
+        where: {
+          id: payload.id,
+        },
+      })
+      .then((result) => {
+        // access token 발급
+        accessJwtSign(result.id, result.email).then((accessToken) => {
+          res.set('x-access-token', accessToken);
+           // 응답코드 작성
+          res.status(200).json({
+            message: 'accessToken이 발급되었습니다',
+          });
+        });
+      })
+      .catch((err) => {
+        res.status(401).json({
+          message: '유저를 찾을 수 없습니다.',
+        });
+        console.log('err message: ', err);
+      });
+    }
+  }).catch((err) => {
+    if (err.name === 'TokenExpiredError') { // 유효기간이 초과한 에러일 경우
+        return res.status(419).json({
+            message: 'Refresh 토큰이 만료되었습니다',
+        });
+    }
+
+         return res.status(401).json({
+             message: '유효하지 않은 Refresh 토큰입니다.',
+         });
+  });
+});
 
 app.set('port', port);
 app.listen(app.get('port'), () => {
