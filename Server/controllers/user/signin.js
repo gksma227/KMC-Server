@@ -17,7 +17,7 @@ module.exports = {
         })
         .then(async (result) => {
             if (!result) {
-                res.status(404).json({ message: 'invalid user' });
+                res.status(501).json({ message: 'invalid user' });
             } else {
                 await refreshJwtSign(result.id, result.username).then((token) => {
                     res.set('x-refresh-token', token);
